@@ -195,9 +195,9 @@ static void *HookThread(void *) {
         usleep(50000);
     }
 
-    // ===== FIX LỖI 1: CHỜ GAME KHỞI TẠO XONG =====
-    LOGI("Đã tìm thấy libil2cpp.so, đợi 3 giây...");
-    sleep(3); 
+    // Giảm thời gian chờ xuống 0.5 giây để tránh bị game kill
+    LOGI("Đã tìm thấy libil2cpp.so, đợi 0.5 giây...");
+    usleep(500000); 
 
     // Hook symbol runtime của libil2cpp
     void *target_sym = DobbySymbolResolver("libil2cpp.so", "il2cpp_init");
