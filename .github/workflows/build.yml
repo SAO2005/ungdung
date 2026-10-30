@@ -1,12 +1,16 @@
 name: Build .so
-on: [push, workflow_dispatch]
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
@@ -22,4 +26,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libmeostar
-        path: build/*.so
+          path: build/*.so
