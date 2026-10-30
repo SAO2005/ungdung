@@ -204,7 +204,7 @@ static void *HookThread(void *) {
     void *target_sym = DobbySymbolResolver("libil2cpp.so", "_ZNSt6__ndk117__assoc_sub_state80__executeEv");
     if (target_sym) {
         LOGI("Bắt đầu Hook...");
-        DobbyHook(target_sym, (void *)hooked_async_execute, (void **)&orig_async_execute); // Sửa origin_call cho đúng biến
+      //  DobbyHook(target_sym, (void *)hooked_async_execute, (void **)&orig_async_execute); // Sửa origin_call cho đúng biến
         LOGI("Hook thành công!");
     } else {
         LOGE("Không tìm thấy symbol để hook!");
