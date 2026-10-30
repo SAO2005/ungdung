@@ -196,21 +196,20 @@ static void *HookThread(void *) {
     }
 
     // ===== FIX LỖI 1: CHỜ GAME KHỞI TẠO XONG =====
-    // Thêm sleep để game load xong các cấu trúc dữ liệu trước khi hook
     LOGI("Đã tìm thấy libil2cpp.so, đợi 3 giây...");
     sleep(3); 
 
-       // Hook symbol runtime của libil2cpp
-    // void *target_sym = DobbySymbolResolver("libil2cpp.so", "_ZNSt6__ndk117__assoc_sub_state80__executeEv");
-    // if (target_sym) {
-    //     LOGI("Bắt đầu Hook...");
-    //     DobbyHook(target_sym, (void *)hooked_async_execute, (void **)&orig_async_execute);
-    //     LOGI("Hook thành công!");
-    // } else {
-    //     LOGE("Không tìm thấy symbol để hook!");
-    // }
+    // Hook symbol runtime của libil2cpp
+    void *target_sym = DobbySymbolResolver("libil2cpp.so", "il2cpp_init");
+    if (target_sym) {
+        LOGI("Bắt đầu Hook vào il2cpp_init...");
+        DobbyHook(target_sym, (void *)hooked_async_execute, (void **)&orig_async_execute);
+        LOGI("Hook thành công!");
+    } else {
+        LOGE("Không tìm thấy symbol il2cpp_init!");
+    }
 
-    LOGI("Đã bỏ qua Hook để test, game đã load xong!");
+    LOGI("Đã chạy xong luồng Hook!");
     g_game_lib_loaded = true;
     return nullptr;
 }
